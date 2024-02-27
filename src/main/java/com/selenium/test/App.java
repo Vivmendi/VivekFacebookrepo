@@ -7,21 +7,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws InterruptedException
     {
       System.out.println( "Hello World!" );
       
-      System.setProperty("webdriver.chrome.driver", "/chromedriver-win64/chromedriver-win64/chromedriver.exe");
-    
+      //System.setProperty("webdriver.chrome.driver", "/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+      // Setting up new object as chromeOptions
       ChromeOptions chromeOptions = new ChromeOptions();
+      //WebDriverManager.chromedriver().setup();
+      WebDriverManager.chromedriver().clearDriverCache().setup();
+    
+     
       
-      WebDriver driver = new ChromeDriver(chromeOptions);
+      // for headless execution in chrome
+     chromeOptions.addArguments("--headless");      
+
+     // for Chrome browser execution
+     WebDriver driver = new ChromeDriver(chromeOptions);
       
       System.out.println("Script Executing Successfully");
     
@@ -44,9 +54,16 @@ public class App
       //Locate the login button and click on Login button
       driver.findElement(By.name("login")).click();
       
+      Thread.sleep(1000);
+      //String text = driver.findElement(By.className("")).getText();
+     // System.out.println(text);
+      
+     // assertEquals("",text);
+      
       //close the browser
       driver.quit();
       System.out.println("Script Executed Successfully");
+      Thread.sleep(1000);
       
     }
 }
